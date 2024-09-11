@@ -1,0 +1,402 @@
+<!doctype html>
+
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Vishap Oberon</title>
+<meta name="description" content="A modern Oberon compiler and tooling" />
+<link rel="stylesheet" href="/assets/css/simple.css">
+<link rel="stylesheet" href="/assets/css/style.css">
+
+<link rel="icon" href="/assets/images/favicon.png" />
+<link rel="apple-touch-icon" href="/assets/images/favicon.png">
+
+ <!-- Facebook integration -->
+<meta property="og:title" content="Vishap Oberon"/>
+<meta property="og:image" content=""/>
+<meta property="og:url" content="https://vishap.oberon.am/"/>
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="Vishap Oberon"/>
+<meta property="og:description" content="A modern Oberon compiler and tooling"/>
+
+<!-- Twitter integration -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Vishap Oberon" />
+<meta name="twitter:image" content="" />
+<meta name="twitter:url" content="https://vishap.oberon.am/" />
+<meta name="twitter:description" content="Modern Oberon compiler and tooling" />
+
+<link rel="canonical" href="https://vishap.oberon.am/">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Fira Code'; color: #000000}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Fira Code'; color: #000000; min-height: 18.0px}
+    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px 'Fira Code'; color: #39c026; min-height: 18.0px}
+    span.s1 {font-variant-ligatures: no-common-ligatures}
+    span.s2 {font-variant-ligatures: no-common-ligatures; color: #39c026}
+  </style>
+
+
+<!-- TODO add RSS link <link rel="alternate" type="application/rss+xml" title="" href=""> -->
+<!-- TODO add XML sitemap <link rel="sitemap" type="application/xml" title="Sitemap" href="" /> -->
+  </head>
+  <body>
+    <header>
+      <nav>
+        <!-- <a href="/" class="current">Home</a> -->
+
+        <a href="#vishap"   >Vishap</a>
+        <a href="#oberon" >Oberon</a>
+        <a href="#compiler" >Compiler</a>
+        <a href="#examples" >Examples</a>
+        <a href="https://github.com/vishapoberon/compiler" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">
+  <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8"/>
+</svg></a>
+<a href="https://twitter.com/VishapOberon">
+  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter" viewBox="0 0 16 16">
+  <path d="M5.026 15c6.038 0 9.341-5.003 9.341-9.334q.002-.211-.006-.422A6.7 6.7 0 0 0 16 3.542a6.7 6.7 0 0 1-1.889.518 3.3 3.3 0 0 0 1.447-1.817 6.5 6.5 0 0 1-2.087.793A3.286 3.286 0 0 0 7.875 6.03a9.32 9.32 0 0 1-6.767-3.429 3.29 3.29 0 0 0 1.018 4.382A3.3 3.3 0 0 1 .64 6.575v.045a3.29 3.29 0 0 0 2.632 3.218 3.2 3.2 0 0 1-.865.115 3 3 0 0 1-.614-.057 3.28 3.28 0 0 0 3.067 2.277A6.6 6.6 0 0 1 .78 13.58a6 6 0 0 1-.78-.045A9.34 9.34 0 0 0 5.026 15"/>
+</svg>
+</a>
+        <a href="https://discord.gg/QjEw6MmgQV" ><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-discord" viewBox="0 0 16 16">
+  <path d="M13.545 2.907a13.2 13.2 0 0 0-3.257-1.011.05.05 0 0 0-.052.025c-.141.25-.297.577-.406.833a12.2 12.2 0 0 0-3.658 0 8 8 0 0 0-.412-.833.05.05 0 0 0-.052-.025c-1.125.194-2.22.534-3.257 1.011a.04.04 0 0 0-.021.018C.356 6.024-.213 9.047.066 12.032q.003.022.021.037a13.3 13.3 0 0 0 3.995 2.02.05.05 0 0 0 .056-.019q.463-.63.818-1.329a.05.05 0 0 0-.01-.059l-.018-.011a9 9 0 0 1-1.248-.595.05.05 0 0 1-.02-.066l.015-.019q.127-.095.248-.195a.05.05 0 0 1 .051-.007c2.619 1.196 5.454 1.196 8.041 0a.05.05 0 0 1 .053.007q.121.1.248.195a.05.05 0 0 1-.004.085 8 8 0 0 1-1.249.594.05.05 0 0 0-.03.03.05.05 0 0 0 .003.041c.24.465.515.909.817 1.329a.05.05 0 0 0 .056.019 13.2 13.2 0 0 0 4.001-2.02.05.05 0 0 0 .021-.037c.334-3.451-.559-6.449-2.366-9.106a.03.03 0 0 0-.02-.019m-8.198 7.307c-.789 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.45.73 1.438 1.613 0 .888-.637 1.612-1.438 1.612m5.316 0c-.788 0-1.438-.724-1.438-1.612s.637-1.613 1.438-1.613c.807 0 1.451.73 1.438 1.613 0 .888-.631 1.612-1.438 1.612"/>
+</svg></a>
+      </nav>
+
+      <h1>Vishap Oberon Compiler</h1>
+      <p><em>Make it as simple as possible, but not simpler — A. Einstein</em></p>
+      <img class="logo" src="assets/images/vishap.png" width="256">
+
+      <p>Oberon-2 Compiler, Libraries and Tooling</p>
+
+    </header>
+
+
+
+    <main>
+
+      <section id="vishap">
+        <h2><em class="under">Vishap</em> Oberon Compiler</h2>
+        <p>Vishaps are dragons from the Armenian Highlands. We named the project 'Vishap' due to the long-standing tradition between dragons and compilers.</p>
+      </section>
+
+      <section id="oberon">
+        <h2>Vishap <em class="under">Oberon</em> Compiler</h2>
+        <p>Oberon is a general-purpose programming language first published in 1987 by Niklaus Wirth and the latest member of the Wirthian family of ALGOL-like languages (Euler, ALGOL W, Pascal, Modula, and Modula-2).</p>
+        <p>Oberon's design goals are</p>
+        <ul>
+          <li>Simplicity</li>
+          <li>Support for system programming</li>
+          <li>Isolation of unsafe code</li>
+          <li>Modules and separate compilation</li>
+          <li>Type-extension with runtime type test</li>
+        </ul>
+
+        <p>Oberon is designed around the following principles:</p>
+        <blockquote>
+          <p>Make it as simple as possible, but not simpler.</p>
+          <p><cite>– Albert Einstein</cite></p>
+        </blockquote>
+
+        <blockquote>
+          <p>Perfection is finally attained not when there is no longer anything to add, but when there is no longer anything to take away.</p>
+          <p><cite>– Antoine de Saint-Exupéry</cite></p>
+        </blockquote>
+
+        <p>To learn more about Oberon, check <a href="#examples">examples</a>.</p>
+      </section>
+
+      <section id="compiler">
+        <h2>Vishap Oberon <em class="under">Compiler</em></h2>
+        <p>Ѵishap Oberon is a free and open source (GPLv3) implementation of the Oberon-2 language and libraries for use on conventional operating systems.</p>
+
+        <p>Vishaps Oberon Compiler (voc) uses a C backend (gcc, clang, tcc or msc) to compile Oberon programs under Unix, Mac or Windows. Vishap Oberon includes libraries from the Ulm, oo2c and Ofront Oberon compilers, as well as default libraries complying with the <em>Oakwood Guidelines</em> for Oberon-2 compilers.</p>
+
+        <p>Vishap Oberon Compiler runs on</p>
+        <ul>
+          <li>Linux</li>
+          <li>macOS</li>
+          <li>Cygwin under Windows, MingW under Cygwin, WSL on Windows</li>
+          <li>FreeBSD</li>
+          <li>OpenBSD</li>
+          <li>Android</li>
+          <li>ReactOS</li>
+          <li>illumos (with limited support, at the moment)</li>
+        </ul>
+
+        <p>Work on native backends for x86_64(amd64) and arm64(aarch64) is in progress.</p>
+
+      </section>
+
+      <section id="examples">
+        <h2>Examples</h2>
+
+        <h4>Hello, World!</h4>
+        <code>hello.Mod</code>
+        <pre><code>
+MODULE hello;
+IMPORT Out;
+BEGIN
+  Out.String("Hello, World"); Out.Ln
+END hello.
+        </code></pre>
+
+        <pre><code>
+<span class="p1"><span class="s1">$ voc -m hello.Mod<span class="Apple-converted-space"> </span></span></span>
+<span class="p1"><span class="s1">hello.Mod<span class="Apple-converted-space">  </span>Compiling hello.</span><span class="s2"><span class="Apple-converted-space">  </span>Main program.</span><span class="s1"><span class="Apple-converted-space">  </span>380 chars.</span></span>
+<span class="p2"><span class="s1"></span><br></span>
+<span class="p1"><span class="s1">$ ./hello<span class="Apple-converted-space"> </span></span></span>
+<span class="p1"><span class="s1">Hello, World</span></span>
+        </code></pre>
+        <h4>Basic Arithmetic</h4>
+        <code>Arithmetic.Mod</code>
+        <pre><code>
+MODULE arithmetic;
+IMPORT Out;
+
+VAR
+  a, b, result: INTEGER;
+(* This is a comment, by the way :) *)
+BEGIN
+  a := 15;
+  b := 5;
+
+  result := a + b;
+  Out.Int(result, 0); Out.Ln;
+
+  result := a * b;
+  Out.Int(result, 0); Out.Ln;
+
+  result := a DIV b;
+  Out.Int(result, 0); Out.Ln;
+END arithmetic.
+        </code></pre>
+
+        <pre><code>
+<span class="p1"><span class="s1">$ voc -m Arithmetic.Mod<span class="Apple-converted-space"> </span></span></span>
+<span class="p1"><span class="s1">Arithmetic.Mod<span class="Apple-converted-space">  </span>Compiling arithmetic.</span><span class="s2"><span class="Apple-converted-space">  </span>Main program.</span><span class="s1"><span class="Apple-converted-space">  </span>718 chars.</span></span>
+<span class="p2"><span class="s1"></span><br></span>
+<span class="p1"><span class="s1">$ ./arithmetic<span class="Apple-converted-space"> </span></span></span>
+<span class="p1"><span class="s1">20</span></span>
+<span class="p1"><span class="s1">75</span></span>
+<span class="p1"><span class="s1">3</span></span>
+        </code></pre>
+
+        <h4>Procedures</h4>
+        <code>Proc.Mod</code>
+        <pre><code>
+MODULE Procedures;
+IMPORT Out;
+
+(*
+  Comments can be multi-line
+
+  Add takes in `a` and `b` integers, and returns an integer
+
+  (* comments can also be nested, unlike most other languages *)
+*)
+PROCEDURE Add(a, b: INTEGER): INTEGER;
+BEGIN
+  RETURN a + b;
+END Add;
+
+BEGIN
+  Out.Int(Add(3, 7), 0); Out.Ln; (* Output: 10 *)
+END Procedures.
+        </code></pre>
+
+        <pre><code>
+<span class="p1"><span class="s1">$ voc -m Proc.Mod<span class="Apple-converted-space"> </span></span></span>
+<span class="p1"><span class="s1">Proc.Mod<span class="Apple-converted-space">  </span>Compiling Procedures.</span><span class="s2"><span class="Apple-converted-space">  </span>Main program.</span><span class="s1"><span class="Apple-converted-space">  </span>495 chars.</span></span>
+<span class="p2"><span class="s1"></span><br></span>
+<span class="p1"><span class="s1">$ ./Procedures</span></span>
+<span class="p1"><span class="s1">10</span></span>
+        </code></pre>
+        <h4>Pass by Value vs Reference</h4>
+        <code>ValVsRef.Mod</code>
+        <pre><code>
+MODULE ValVsRef;
+IMPORT Out;
+
+VAR
+  number: INTEGER;
+
+
+PROCEDURE IncrementValue(i: INTEGER);
+BEGIN
+  i := i + 1;
+  Out.String("During IncrementValue (pass by value),           in function scope: "); Out.Int(i, 0); Out.Ln;
+END IncrementValue;
+
+PROCEDURE IncrementByReference(VAR i: INTEGER);
+BEGIN
+  i := i + 1;
+  Out.String("During IncrementByReference (pass by reference), in function scope: "); Out.Int(i, 0); Out.Ln;
+END IncrementByReference;
+
+BEGIN
+  (* Pass by Value *)
+  number := 5;
+  Out.String("Initial value of number: "); Out.Int(number, 0); Out.Ln;
+
+  IncrementValue(number);
+  Out.String("After  IncrementValue (pass by value),           in main scope: "); Out.Int(number, 0); Out.Ln;
+
+  (* Pass by Reference *)
+  IncrementByReference(number);
+  Out.String("After  IncrementByReference (pass by reference), in main scope: "); Out.Int(number, 0); Out.Ln;
+END ValVsRef.
+        </code></pre>
+
+        <pre><code>
+<span class="p1"><span class="s1">$ voc -m ValVsRef.Mod<span class="Apple-converted-space"> </span></span></span>
+<span class="p1"><span class="s1">ValVsRef.Mod<span class="Apple-converted-space">  </span>Compiling ValVsRef.</span><span class="s2"><span class="Apple-converted-space">  </span>Main program.</span><span class="s1"><span class="Apple-converted-space">  </span>1320 chars.</span></span>
+<span class="p3"><span class="s1"></span><br></span>
+<span class="p1"><span class="s1">$ ./ValVsRef<span class="Apple-converted-space"> </span></span></span>
+<span class="p1"><span class="s1">Initial value of number: 5</span></span>
+<span class="p1"><span class="s1">During IncrementValue (pass by value), <span class="Apple-converted-space">          </span>in function scope: 6</span></span>
+<span class="p1"><span class="s1">After<span class="Apple-converted-space">  </span>IncrementValue (pass by value), <span class="Apple-converted-space">          </span>in main scope: 5</span></span>
+<span class="p1"><span class="s1">During IncrementByReference (pass by reference), in function scope: 6</span></span>
+<span class="p1"><span class="s1">After<span class="Apple-converted-space">  </span>IncrementByReference (pass by reference), in main scope: 6</span></span>
+        </code></pre>
+
+        <h4>Records and Type Extension</h4>
+        <code>Students.Mod</code>
+        <pre><code>
+MODULE Students;
+IMPORT Out;
+
+TYPE
+  Person = RECORD
+    name: ARRAY 32 OF CHAR;
+    age: INTEGER;
+  END;
+
+  Student = RECORD(Person)
+    id: INTEGER;
+  END;
+
+VAR
+  s0: Student;
+
+BEGIN
+  s0.name := "John Doe";
+  s0.age  := 42;
+  s0.id   := 1337;
+  Out.String(s0.name); Out.Ln;
+  Out.Int(s0.age, 0);  Out.Ln;
+  Out.Int(s0.id, 0);   Out.Ln;
+END Students.
+        </code></pre>
+
+        <pre><code>
+<span class="p1"><span class="s1">$ voc -m Students.Mod<span class="Apple-converted-space"> </span></span></span>
+<span class="p1"><span class="s1">Students.Mod<span class="Apple-converted-space">  </span>Compiling Students.</span><span class="s2"><span class="Apple-converted-space">  </span>Main program.</span><span class="s1"><span class="Apple-converted-space">  </span>1075 chars.</span></span>
+<span class="p3"><span class="s1"></span><br></span>
+<span class="p1"><span class="s1">$ ./Students<span class="Apple-converted-space"> </span></span></span>
+<span class="p1"><span class="s1">John Doe</span></span>
+<span class="p1"><span class="s1">42</span></span>
+<span class="p1"><span class="s1">1337</span></span>
+        </code></pre>
+      </section>
+<!--
+      <section id="ebnf">
+        <h2>Syntax of Oberon</h2>
+        <pre>
+Module       = MODULE ident ";" [ImportList] DeclSeq
+               [BEGIN StatementSeq] END ident ".".
+ImportList   = IMPORT [ident ":="] ident {"," [ident ":="] ident} ";".
+DeclSeq      = { CONST {ConstDecl ";" } | TYPE {TypeDecl ";"}
+                 | VAR {VarDecl ";"}} {ProcDecl ";" | ForwardDecl ";"}.
+ConstDecl    = IdentDef "=" ConstExpr.
+TypeDecl     = IdentDef "=" Type.
+VarDecl      = IdentList ":" Type.
+ProcDecl     = PROCEDURE [Receiver] IdentDef [FormalPars] ";" DeclSeq
+               [BEGIN StatementSeq] END ident.
+ForwardDecl  = PROCEDURE "^" [Receiver] IdentDef [FormalPars].
+FormalPars   = "(" [FPSection {";" FPSection}] ")" [":" Qualident].
+FPSection    = [VAR] ident {"," ident} ":" Type.
+Receiver     = "(" [VAR] ident ":" ident ")".
+Type         = Qualident
+             | ARRAY [ConstExpr {"," ConstExpr}] OF Type
+             | RECORD ["("Qualident")"] FieldList {";" FieldList} END
+             | POINTER TO Type
+             | PROCEDURE [FormalPars].
+FieldList    = [IdentList ":" Type].
+StatementSeq = Statement {";" Statement}.
+Statement    = [ Designator ":=" Expr
+             | Designator ["(" [ExprList] ")"]
+             | IF Expr THEN StatementSeq {ELSIF Expr THEN StatementSeq}
+               [ELSE StatementSeq] END
+             | CASE Expr OF Case {"|" Case} [ELSE StatementSeq] END
+             | WHILE Expr DO StatementSeq END
+             | REPEAT StatementSeq UNTIL Expr
+             | FOR ident ":=" Expr TO Expr [BY ConstExpr] DO StatementSeq END
+             | LOOP StatementSeq END
+             | WITH Guard DO StatementSeq {"|" Guard DO StatementSeq}
+               [ELSE StatementSeq] END
+             | EXIT
+             | RETURN [Expr]
+             ].
+Case         = [CaseLabels {"," CaseLabels} ":" StatementSeq].
+CaseLabels   = ConstExpr [".." ConstExpr].
+Guard        = Qualident ":" Qualident.
+ConstExpr    = Expr.
+Expr         = SimpleExpr [Relation SimpleExpr].
+SimpleExpr   = ["+" | "-"] Term {AddOp Term}.
+Term         = Factor {MulOp Factor}.
+Factor       = Designator ["(" [ExprList] ")"] | number | character | string
+               | NIL | Set | "(" Expr ")" | " ~ " Factor.
+Set          = "{" [Element {"," Element}] "}".
+Element      = Expr [".." Expr].
+Relation     = "=" | "#" | "&lt;" | "&lt;=" | "&gt;" | "&gt;=" | IN | IS.
+AddOp        = "+" | "-" | OR.
+MulOp        = " * " | "/" | DIV | MOD | "&amp;".
+Designator   = Qualident {"." ident | "[" ExprList "]" | " ^ "
+               | "(" Qualident ")"}.
+ExprList     = Expr {"," Expr}.
+IdentList    = IdentDef {"," IdentDef}.
+Qualident    = [ident "."] ident.
+IdentDef     = ident [" * " | "-"].
+        </pre>
+      </section>
+      -->
+
+      <section id="resources">
+        <h2>Resources</h2>
+        <ul>
+          <li><a href="http://projectoberon.net">Project Oberon</a></li>
+          <li><a href="/assets/pdf/Oberon-Report.pdf">The Programming Language Oberon [PDF]</a></li>
+          <li><a href="/assets/pdf/Oberon2-Report.pdf">The Programming Language Oberon-2 [PDF]</a></li>
+          <li><a href="/assets/pdf/ProgrammingInOberon.pdf">Programming in Oberon [PDF]</a></li>
+          <li><a href="/assets/pdf/oakwood-guidelines.pdf">The Oakwood Guidelines for Oberon-2 Compiler Developer [PDF]</a></li>
+          <li><a href="/assets/pdf/Oberon07-Report.pdf">The Programming Langauge Oberon-07 [PDF]</a></li>
+          <li><a href="/assets/pdf/Oberon2.OOP.pdf">Object-oriented programming in Oberon-2 [paper, PDF]</a></li>
+          <li>Object-oriented programming in Oberon-2 [book, PDF]</li>
+        </ul>
+      </section>
+      <section id="timeline">
+        <h2>Timeline</h2>
+        <ul>
+          <li>May 2022 v2.1.2 release</li>
+          <li>Nov 2016 v2.0 release</li>
+          <li>Sep 2014 v1.0 release</li>
+          <li>Sep 2013 voc initial commit</li>
+          <li>2012 Josef Templ’s Ofront compiler relicense to BSDL</li>
+          <li>1991 Oberon-2</li>
+          <li>1986/1987 Oberon Report published</li>
+        </ul>
+      </section>
+    </main>
+    <footer>
+      <p>This page was created using vi and <a href="https://simplecss.org/">Simple.css</a>.</p>
+      <p>
+        <em>$
+Wed Sep 11 14:18:46 +04 2024
+        $</em>
+      </p>
+    </footer>
+  </body>
+</html>
+
